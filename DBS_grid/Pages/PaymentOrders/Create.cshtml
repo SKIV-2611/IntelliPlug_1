@@ -1,0 +1,49 @@
+﻿@page
+@model DBS_grid.Pages.PaymentOrders.CreateModel
+
+@{
+    ViewData["Title"] = "Создать платёжное поручение";
+}
+
+<h1>Создать платёжное поручение</h1>
+
+<!-- <h4>PaymentOrder</h4> -->
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PaymentOrder.SenderAccount" class="control-label"></label>
+                <input asp-for="PaymentOrder.SenderAccount" class="form-control" />
+                <span asp-validation-for="PaymentOrder.SenderAccount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaymentOrder.ReceiverAccount" class="control-label"></label>
+                <input asp-for="PaymentOrder.ReceiverAccount" class="form-control" />
+                <span asp-validation-for="PaymentOrder.ReceiverAccount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaymentOrder.Sum" class="control-label"></label>
+                <input asp-for="PaymentOrder.Sum" class="form-control" />
+                <span asp-validation-for="PaymentOrder.Sum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaymentOrder.Reference" class="control-label"></label>
+                <input asp-for="PaymentOrder.Reference" class="form-control" />
+                <span asp-validation-for="PaymentOrder.Reference" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать и отправить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Вернуться назад</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

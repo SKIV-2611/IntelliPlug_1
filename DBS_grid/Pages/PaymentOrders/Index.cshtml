@@ -1,0 +1,58 @@
+﻿@page
+@model DBS_grid.Pages.PaymentOrders.IndexModel
+
+@{
+    ViewData["Title"] = "Начальная страница";
+}
+
+<h1>Начало</h1>
+
+<p>
+    <a asp-page="Create">Создать новое платёжное поручение</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentOrder[0].SenderAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentOrder[0].ReceiverAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentOrder[0].Sum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentOrder[0].Reference)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentOrder[0].Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.PaymentOrder) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SenderAccount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReceiverAccount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reference)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@item.ID">Детали</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
