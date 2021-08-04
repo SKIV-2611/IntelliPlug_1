@@ -29,6 +29,7 @@ namespace DBS_grid
 
             services.AddDbContext<DBS_gridContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DBS_gridContext")));
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +56,7 @@ namespace DBS_grid
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }
