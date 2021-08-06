@@ -12,9 +12,9 @@ namespace DBS_grid.Pages.PaymentOrders
 {
     public class CreateModel : PageModel
     {
-        private readonly DBS_grid.Data.DBS_gridContext _context;
+        private readonly DBS_gridContext _context;
 
-        public CreateModel(DBS_grid.Data.DBS_gridContext context)
+        public CreateModel(DBS_gridContext context)
         {
             _context = context;
         }
