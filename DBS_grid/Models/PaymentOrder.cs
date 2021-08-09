@@ -27,9 +27,11 @@ namespace DBS_grid.Models
             [Display(Name = "Исполнен")]
             Performed = 2,
             [Display(Name = "Отказан")]
-            Refused = 3
+            Refused = 3,
+            [Display(Name = "Не отправлен")]
+            NotSent = 4
         };
         [Display(Name = "Статус")]
-        public OrderStatus Status { get; set; } = OrderStatus.Processing;
+        public OrderStatus Status { get; set; } = OrderStatus.NotSent;
     }
 }
