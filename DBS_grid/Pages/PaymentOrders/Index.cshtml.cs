@@ -22,7 +22,7 @@ namespace DBS_grid.Pages.PaymentOrders
         {
             _context = context;
             _postPayment =
-                RestClient.For<IPostPayment>("http://localhost:54616");
+                RestClient.For<IPostPayment>("https://localhost:44382");
         }
 
         public IList<PaymentOrder> PaymentOrder { get;set; }
@@ -33,11 +33,11 @@ namespace DBS_grid.Pages.PaymentOrders
         }
 
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostSendAsync()
         {
             var paymentOrders =
                 _context.PaymentOrder.Where
-                (p => p.Status == Models.PaymentOrder.OrderStatus.Processing);
+                (p => p.Status == Models.PaymentOrder.OrderStatus.NotSent);
             foreach(PaymentOrder po in paymentOrders)
             {
                 await _postPayment.SendPayment(new PaymentOrderDTO(po));
