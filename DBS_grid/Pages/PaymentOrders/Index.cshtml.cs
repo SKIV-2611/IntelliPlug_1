@@ -33,16 +33,30 @@ namespace DBS_grid.Pages.PaymentOrders
         }
 
 
-        public async Task<IActionResult> OnPostSendAsync()
+        public async Task<IActionResult> OnPostSendAllAsync()
         {
             var paymentOrders =
                 _context.PaymentOrder.Where
                 (p => p.Status == Models.PaymentOrder.OrderStatus.NotSent);
+            
             foreach(PaymentOrder po in paymentOrders)
             {
                 await _postPayment.SendPayment(new PaymentOrderDTO(po));
             }
 
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostSendOneAsync(int id)
+        {
+            var paymentOrder = _context.PaymentOrder.Find(id);
+            
+            if(paymentOrder != null)
+            {
+                paymentOrder.Status = Models.PaymentOrder.OrderStatus.Processing;
+                await _postPayment.SendPayment(new PaymentOrderDTO(paymentOrder));
+            }
+            await _context.SaveChangesAsync();
             return RedirectToPage();
         }
     }

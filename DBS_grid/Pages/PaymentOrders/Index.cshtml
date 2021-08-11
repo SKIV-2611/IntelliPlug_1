@@ -11,7 +11,7 @@
     <a asp-page="Create">Создать новое платёжное поручение</a>
 </p>
 <form method="post">
-    <button asp-page-handler="Send">
+    <button asp-page-handler="SendAll">
         Послать новые платёжные поручения в АБС
     </button>
 </form>
@@ -56,6 +56,13 @@
             </td>
             <td>
                 <a asp-page="./Details" asp-route-id="@item.ID">Детали</a>
+            </td>
+            <td>
+                <form method="post">
+                    <button asp-page-handler="SendOne">
+                        Послать в АБС
+                    </button>
+                </form>
             </td>
         </tr>
 }
