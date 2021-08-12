@@ -60,7 +60,7 @@
             </td>
             <td>
                 <form method="post">
-                    <button asp-page-handler="SendOne">
+                    <button asp-page-handler="SendOne" asp-route-id="@item.ID">
                         Послать в АБС
                     </button>
                 </form>
