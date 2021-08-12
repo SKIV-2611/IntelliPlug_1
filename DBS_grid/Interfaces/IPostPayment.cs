@@ -12,6 +12,6 @@ namespace DBS_grid.Interfaces
     public interface IPostPayment
     {
         [Post("api/Payments")]
-        Task SendPayment([Body] PaymentOrderDTO paymentOrderDTO);
+        Task SendPaymentAsync([Body] PaymentOrderDTO paymentOrderDTO);
     }
 }

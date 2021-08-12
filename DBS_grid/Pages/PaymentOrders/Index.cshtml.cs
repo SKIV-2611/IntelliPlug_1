@@ -41,9 +41,10 @@ namespace DBS_grid.Pages.PaymentOrders
             
             foreach(PaymentOrder po in paymentOrders)
             {
-                await _postPayment.SendPayment(new PaymentOrderDTO(po));
+                po.Status = Models.PaymentOrder.OrderStatus.Processing;
+                await _postPayment.SendPaymentAsync(new PaymentOrderDTO(po));
             }
-
+            await _context.SaveChangesAsync();
             return RedirectToPage();
         }
 
@@ -54,7 +55,7 @@ namespace DBS_grid.Pages.PaymentOrders
             if(paymentOrder != null)
             {
                 paymentOrder.Status = Models.PaymentOrder.OrderStatus.Processing;
-                await _postPayment.SendPayment(new PaymentOrderDTO(paymentOrder));
+                await _postPayment.SendPaymentAsync(new PaymentOrderDTO(paymentOrder));
             }
             await _context.SaveChangesAsync();
             return RedirectToPage();
