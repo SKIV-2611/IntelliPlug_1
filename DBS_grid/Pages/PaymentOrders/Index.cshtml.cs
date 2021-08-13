@@ -11,6 +11,12 @@ using DBS_grid.Data;
 using DBS_grid.Models;
 using DBS_grid.Interfaces;
 
+using MockServerClientNet;
+using MockServerClientNet.Model;
+using MockServerClientNet.Verify;
+using static MockServerClientNet.Model.HttpRequest;
+using static MockServerClientNet.Model.HttpForward;
+
 namespace DBS_grid.Pages.PaymentOrders
 {
     public class IndexModel : PageModel
@@ -50,6 +56,18 @@ namespace DBS_grid.Pages.PaymentOrders
 
         public async Task<IActionResult> OnPostSendOneAsync(int id)
         {
+            var mockServerClient = new MockServerClient("localhost", 44317);
+
+            await mockServerClient.ResetAsync();
+
+            await mockServerClient.When(Request()
+                .WithPath("api/Payments"),
+                Times.Exactly(1))
+                .ForwardAsync(Forward()
+                .WithHost("localhost")
+                .WithPort(44317)
+                .WithScheme(HttpScheme.Https));
+
             var paymentOrder = _context.PaymentOrder.Find(id);
             
             if(paymentOrder != null)
@@ -60,5 +78,6 @@ namespace DBS_grid.Pages.PaymentOrders
             await _context.SaveChangesAsync();
             return RedirectToPage();
         }
+
     }
 }
