@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DBS_grid.Data;
+using DBS_grid.Interfaces;
+using DBS_grid.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using RestEase;
-using Newtonsoft.Json;
-using DBS_grid.Data;
-using DBS_grid.Models;
-using DBS_grid.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DBS_grid.Pages.PaymentOrders
 {
@@ -22,10 +20,10 @@ namespace DBS_grid.Pages.PaymentOrders
         {
             _context = context;
             _postPayment =
-                RestClient.For<IPostPayment>("https://localhost:44382");
+                RestClient.For<IPostPayment>("http://localhost:4545");
         }
 
-        public IList<PaymentOrder> PaymentOrder { get;set; }
+        public IList<PaymentOrder> PaymentOrder { get; set; }
 
         public async Task OnGetAsync()
         {
@@ -38,8 +36,8 @@ namespace DBS_grid.Pages.PaymentOrders
             var paymentOrders =
                 _context.PaymentOrder.Where
                 (p => p.Status == Models.PaymentOrder.OrderStatus.NotSent);
-            
-            foreach(PaymentOrder po in paymentOrders)
+
+            foreach (PaymentOrder po in paymentOrders)
             {
                 po.Status = Models.PaymentOrder.OrderStatus.Processing;
                 await _postPayment.SendPaymentAsync(new PaymentOrderDTO(po));
@@ -51,7 +49,7 @@ namespace DBS_grid.Pages.PaymentOrders
         public async Task<IActionResult> OnPostSendOneAsync(int id)
         {
             var paymentOrder = _context.PaymentOrder.Find(id);
-            if(paymentOrder != null)
+            if (paymentOrder != null)
             {
                 paymentOrder.Status = Models.PaymentOrder.OrderStatus.Processing;
                 await _postPayment.SendPaymentAsync(new PaymentOrderDTO(paymentOrder));
@@ -59,6 +57,5 @@ namespace DBS_grid.Pages.PaymentOrders
             await _context.SaveChangesAsync();
             return RedirectToPage();
         }
-
     }
 }

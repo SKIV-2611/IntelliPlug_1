@@ -1,5 +1,4 @@
-﻿using System;
-//using System.Text.Json.Serialization;
+﻿//using System.Text.Json.Serialization;
 
 namespace DBS_grid.Models
 {
@@ -21,7 +20,7 @@ namespace DBS_grid.Models
         //public string Reference { get; set; }
         public string PaymentDetails { get; set; }
 
-        public PaymentOrderDTO (PaymentOrder payment)
+        public PaymentOrderDTO(PaymentOrder payment)
         {
             this.DboID = payment.ID;
             this.PayerAccountNumber = payment.SenderAccount;
